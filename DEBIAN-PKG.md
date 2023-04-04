@@ -77,21 +77,7 @@ We'll do so by incrementally migrating Ansible functionality over to the Debian 
 
 - Consolidate `ansible-role-ustreamer` repo with TinyPilot repo
 
-# Discussion
-
-> There's an [official [uStreamer] Debian package](https://salsa.debian.org/reedy/ustreamer/-/tree/master/debian)
->
-> I don't think we can use it because we need the `WITH_JANUS` compilation option
-
-Agreed. The uStreamer binary gets built with no extra make flags, which we need. Besides, uStreamer Debian packages aren't up to date, even the [`unstable` suite only has version `4.9-1`](https://packages.debian.org/search?suite=all&section=all&arch=any&searchon=sourcenames&keywords=ustreamer).
-
-> @jdeanwallace will be project architect and advise the project based on his experience converting the TinyPilot Ansible role to Debian.
-
-Seeing as we haven't completed the migration from TinyPilot Ansible to TinyPilot Debian, should this design also be for a partial migration? My preference is to design for a partial migration up until installing the uStreamer binary via a Debian package because there would be less unknowns.
-
-> We need to decide whether it makes sense to manage the TC358743 EDID as part of the TinyPilot Debian package, the uStreamer Debian package, or somewhere else.
-
-uStreamer can now load a custom EDID before it starts, so it might make sense to keep the EDID in the uStreamer Debian package. See https://github.com/pikvm/ustreamer#edid
+  - We should now be able to archive the `ansible-role-ustreamer` repo
 
 # Resources
 
