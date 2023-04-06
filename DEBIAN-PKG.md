@@ -4,12 +4,9 @@ This ticket is the result of https://github.com/tiny-pilot/ustreamer-debian/issu
 
 We want to reimplement `ansible-role-ustreamer` functionality as a Debian package.
 
-We'll do so by incrementally migrating Ansible functionality over to the Debian package, in the following milestones:
+# Background
 
-1. Install uStreamer via a Debian package instead of compiling from source
-2. Migrate uStreamer launcher to Debian package
-3. All other uStreamer functionality
-4. Consolidate `ansible-role-ustreamer` repo with TinyPilot repo
+We've found that running Ansible is generally a slow process that might not be well suited for installing TinyPilot and TinyPilot related software, like uStreamer. We've already partially migrated our TinyPilot installation away from Ansible to a Debian package and we'd like to do the same with our uStreamer installation. Using a Debian package speeds up the installation process by using simple bash scripts, as opposed to Python in Ansible, and skipping an installation when the versions are the same.
 
 # Milestone tasks
 
