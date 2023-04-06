@@ -10,7 +10,7 @@ We've found that running Ansible is generally a slow process that might not be w
 
 # Milestone tasks
 
-## Milestone 1
+## Milestone 1: Install uStreamer via a Debian package instead of compiling from source
 
 - Archive the `ustreamer-debian` repo
 
@@ -37,7 +37,7 @@ We've found that running Ansible is generally a slow process that might not be w
 
     - Skip Ansible tasks that would otherwise be handled by the Debian package
 
-## Milestone 2
+## Milestone 2: Migrate uStreamer launcher to Debian package
 
 - In Ansible, drop support for building uStreamer from source
 
@@ -64,13 +64,13 @@ We've found that running Ansible is generally a slow process that might not be w
 
 - Migrate uStreamer launcher script to Debian package
 
-## Milestone 3
+## Milestone 3: All other uStreamer functionality
 
 - Migrate Janus config to Debian package
 
 - Migrate uStreamer systemd service to Debian package
 
-## Milestone 4
+## Milestone 4: Consolidate `ansible-role-ustreamer` repo with TinyPilot repo
 
 - Consolidate `ansible-role-ustreamer` repo with TinyPilot repo
 
