@@ -63,7 +63,7 @@ Avoid making parallel changes in both `ansible-role-ustreamer`, and `ustreamer-d
 
 - Consolidate `ansible-role-ustreamer` with TinyPilot repo
 
-  - This is just a temporary solution so we can just move the contents of the `ansible-role-ustreamer` repo into a `ansible-role-ustreamer` directory in the root of the TinyPilot repo
+  - This is just a temporary solution so we can move the contents of the `ansible-role-ustreamer` repo into a `ansible-role-ustreamer` directory in the root of the TinyPilot repo
 
 - Bundle local version of `ansible-role-ustreamer`
 
@@ -73,11 +73,11 @@ Avoid making parallel changes in both `ansible-role-ustreamer`, and `ustreamer-d
 
 - Bundle local version of uStreamer's Debian package file
 
-## Milestone 3: Migrate all uStreamer Ansible role functionality to Debian package
+## Milestone 3: Partially migrate uStreamer Ansible role functionality to Debian package
 
 ### Goal
 
-Purge uStreamer's Ansible role.
+Migrate highest-impact and/or lowest-effort Ansible tasks to Debian package.
 
 ### Steps
 
@@ -87,6 +87,18 @@ Purge uStreamer's Ansible role.
 
 - Migrate creation of uStreamer user and group to uStreamer Debian package
 
+  - We do [something similar](https://github.com/tiny-pilot/tinypilot/blob/master/debian-pkg/debian/tinypilot.postinst#L15-L29) in TinyPilot's Debian package
+
+- Migrate [Janus static config files](https://github.com/tiny-pilot/ansible-role-ustreamer/blob/master/tasks/install_janus.yml#L57-L58) to uStreamer Debian package
+
+## Milestone 4: Migrate remaining uStreamer Ansible role functionality to Debian package
+
+### Goal
+
+Purge uStreamer's Ansible role.
+
+### Steps
+
 - Install `yq` as part of the uStreamer Debian package
 
   - This is in preparation for migrating the uStreamer launcher script, which depends on `yq`
@@ -94,25 +106,33 @@ Purge uStreamer's Ansible role.
   - To avoid conflicts with system software, we could install `yq` to `/home/ustreamer/.local/bin`
     - https://unix.stackexchange.com/a/264495
 
-- Migrate `/boot/config.txt` to uStreamer Debian package
-
-- Migrate `/boot/cmdline.txt` to uStreamer Debian package
-
-- Migrate TC358743 EDID file to uStreamer Debian package
-
-- Migrate TC358743 EDID loader systemd service to uStreamer Debian package
-
 - Migrate [default uStreamer config for TC358743 chips](https://github.com/tiny-pilot/ansible-role-ustreamer/blob/master/tasks/provision_tc358743.yml#L74-L81) to uStreamer's Debian package `postinstall` script
 
-  - This is required so that the Debian package can later generate the [default uStreamer launcher runtime config](https://github.com/tiny-pilot/ansible-role-ustreamer/blob/master/tasks/install_launcher.yml#L37-L59)
+  - This gives us enough info to create the `/opt/ustreamer-launcher/configs.d/000-defaults.yml` file on devices with TC358743 chips
 
 - Migrate [default uStreamer config for non-TC358743 chips](https://github.com/tiny-pilot/tinypilot/blob/master/bundler/bundle/install#L83-L93) to uStreamer's Debian package `postinstall` script
 
+  - This gives us enough info to create the `/opt/ustreamer-launcher/configs.d/000-defaults.yml` file on devices with non-TC358743 chips
   - This isn't strictly required, but it would be nice to consolidate all the default uStreamer launcher config in one place
 
 - Migrate uStreamer launcher script to uStreamer Debian package
 
-- Migrate Janus config to uStreamer Debian package
+  - This requires all dynamically determined uStreamer config (i.e., [default config for TC358743 chips](https://github.com/tiny-pilot/ansible-role-ustreamer/blob/master/tasks/provision_tc358743.yml#L74-L81)) to live within the uStreamer Debian package
+  - After this task, all uStreamer's command-line arguments will be consolidated within uStreamer's Debian package
+
+- Migrate the provisioning of the TC358743 chip, which consists of the following sub-tasks:
+
+  - Migrate `/boot/config.txt` to uStreamer Debian package
+
+  - Migrate `/boot/cmdline.txt` to uStreamer Debian package
+
+  - Migrate TC358743 EDID file to uStreamer Debian package
+
+  - Migrate TC358743 EDID loader systemd service to uStreamer Debian package
+
+- Migrate uStreamer Janus plugin config to uStreamer Debian package
+
+  - This depends on the [value of `ustreamer_capture_device`](https://github.com/tiny-pilot/ansible-role-ustreamer/blob/master/templates/janus.plugin.ustreamer.jcfg.j2#L5)
 
 - Migrate uStreamer systemd service to uStreamer Debian package
 
