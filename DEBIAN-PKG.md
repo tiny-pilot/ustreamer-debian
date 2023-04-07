@@ -28,7 +28,8 @@ Avoid building uStreamer on the device, reducing the TinyPilot installation time
   - Build the Debian package in CI
 
     - Use Docker's `--platform` parameter to target both AMD64 and ARMv7 architectures
-    - Save the package file as an CI artifact which we can later manually attach to as GitHub release asset
+    - Save the package file as an CI artifact which we can later manually attach as a GitHub release asset
+      - This will only happen for a single release until we consolidate `ansible-role-ustreamer` with the TinyPilot repo, in milestone 2
 
   - Use `debhelper` to automatically build the uStreamer binary via its `Makefile`, similar to the [(official?) Debian package](https://salsa.debian.org/reedy/ustreamer/-/tree/master/)
   - Always build uStreamer using the `WITH_JANUS` make flag
@@ -39,7 +40,7 @@ Avoid building uStreamer on the device, reducing the TinyPilot installation time
 
 - Create a `ustreamer-debian` release
 
-  - Attach the latest Debian package CI artifact as a GitHub release asset
+  - Manually attach the latest Debian package CI artifact as a GitHub release asset
 
 - In `ansible-role-ustreamer`, install the appropriate uStreamer Debian package instead of building from source
 
