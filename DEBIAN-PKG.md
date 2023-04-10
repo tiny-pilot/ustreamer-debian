@@ -55,7 +55,7 @@ This is the highest priority goal because it gives us the most value from migrat
 
 ### Goal
 
-Avoid making parallel changes in both `ansible-role-ustreamer`, and `ustreamer-debian` repos; when we later incrementally migrate uStreamer's Ansible role functionality to the Debian package.
+Avoid making parallel changes (i.e., bumping version numbers) in both `ansible-role-ustreamer`, and `ustreamer-debian` repos; when we later incrementally migrate uStreamer's Ansible role functionality to the Debian package.
 
 ### Steps
 
