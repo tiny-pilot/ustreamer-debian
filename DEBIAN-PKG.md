@@ -16,6 +16,8 @@ We've found that running Ansible is generally a slow process that might not be w
 
 Avoid building uStreamer on the device, reducing the TinyPilot installation time by about 20s.
 
+This is the highest priority goal because it gives us the most value from migrating uStreamer to a Debian package.
+
 ### Steps
 
 - In `ansible-role-ustreamer`, drop support for Debian Buster
