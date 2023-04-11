@@ -10,7 +10,7 @@ We've found that running Ansible is generally a slow process that might not be w
 
 # Milestones
 
-## Milestone 1: Install uStreamer via a Debian package instead of compiling from source
+## Milestone 1: Install a pre-compiled uStreamer binary via a Debian package, while maintaining the ability to build uStreamer from source
 
 ### Goal
 
