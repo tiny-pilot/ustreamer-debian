@@ -9,7 +9,8 @@ RUN set -x && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       debhelper \
       dpkg-dev \
-      git
+      git \
+      build-essential
 
 # The `PKG_VERSION` is the version of the Debian package. This should be a
 # timestamp, formatted `YYYYMMDDhhmmss`. That way the package manager always
@@ -35,7 +36,6 @@ Section: video
 Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
-  build-essential,
   libevent-dev,
   libbsd-dev,
   uuid-dev,
@@ -43,7 +43,7 @@ Build-Depends: debhelper (>= 11),
   libspeex-dev,
   libspeexdsp-dev,
   libopus-dev,
-  libjpeg-dev,
+  libjpeg62-turbo-dev,
   libglib2.0-dev,
   libjansson-dev
 
@@ -69,6 +69,12 @@ ${PKG_NAME} (${PKG_VERSION}) bullseye; urgency=medium
 EOF
 
 WORKDIR ..
+
+RUN mk-build-deps \
+      --tool 'apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -qqy' \
+      --install \
+      --remove \
+      debian/control
 
 RUN DH_VERBOSE=1 dpkg-buildpackage --build=binary
 
