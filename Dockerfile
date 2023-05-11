@@ -46,6 +46,7 @@ Build-Depends: debhelper (>= 11),
   libjpeg-dev,
   libglib2.0-dev,
   libjansson-dev
+
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
 Depends: \${shlibs:Depends}, \${misc:Depends}
