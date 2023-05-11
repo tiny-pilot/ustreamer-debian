@@ -9,6 +9,7 @@ RUN set -x && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
       debhelper \
       dpkg-dev \
+      devscripts \
       git \
       build-essential
 
