@@ -35,6 +35,7 @@ Section: video
 Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
+  build-essential,
   libevent-dev,
   libbsd-dev,
   uuid-dev,
@@ -42,10 +43,9 @@ Build-Depends: debhelper (>= 11),
   libspeex-dev,
   libspeexdsp-dev,
   libopus-dev,
-  libjpeg62-turbo-dev,
+  libjpeg-dev,
   libglib2.0-dev,
   libjansson-dev
-
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
 Depends: \${shlibs:Depends}, \${misc:Depends}
