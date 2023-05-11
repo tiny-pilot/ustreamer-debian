@@ -25,9 +25,9 @@ WORKDIR "/build/${PKG_ID}"
 
 RUN git clone https://github.com/tiny-pilot/ustreamer.git .
 
-COPY ./debian ./
+COPY debian debian
 
-WORKDIR "/build/${PKG_ID}/debian"
+WORKDIR debian
 
 RUN cat >control <<EOF
 Source: ${PKG_NAME}
@@ -57,7 +57,7 @@ ${PKG_NAME} (${PKG_VERSION}) bullseye; urgency=medium
  -- TinyPilot Support <support@tinypilotkvm.com>  $(date '+%a, %d %b %Y %H:%M:%S %z')
 EOF
 
-WORKDIR "/build/${PKG_ID}"
+WORKDIR ..
 
 RUN DH_VERBOSE=1 dpkg-buildpackage --build=binary
 
