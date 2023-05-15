@@ -38,15 +38,9 @@ Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
   libevent-dev,
-  libbsd-dev,
+  libjpeg-dev,
   uuid-dev,
-  libasound2-dev,
-  libspeex-dev,
-  libspeexdsp-dev,
-  libopus-dev,
-  libjpeg62-turbo-dev,
-  libglib2.0-dev,
-  libjansson-dev
+  libbsd-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
