@@ -35,7 +35,7 @@ if [[ -n "${CI:-}" ]]; then
 fi
 readonly DOCKER_PROGRESS
 
-DOCKER_BUILDKIT=1 docker buildx \
+DOCKER_BUILDKIT=1 docker buildx build \
   --file Dockerfile \
   --platform "${BUILD_TARGETS}" \
   --build-arg PKG_VERSION="${PKG_VERSION}" \
