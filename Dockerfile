@@ -50,9 +50,9 @@ EOF
 # way to specify a dynamic value in Docker's WORKDIR command, so we use a
 # placeholder directory name to assemble the Debian package and then rename the
 # directory to its package ID name in the final stages of packaging.
-RUN mkdir -p '/build/placeholder-pkg-id'
+RUN mkdir -p /build/placeholder-pkg-id
 
-WORKDIR '/build/placeholder-pkg-id'
+WORKDIR /build/placeholder-pkg-id
 
 RUN git clone https://github.com/tiny-pilot/ustreamer.git .
 
@@ -104,6 +104,8 @@ RUN mk-build-deps \
       --remove \
       debian/control
 
+# Rename the placeholder build directory to the final package ID.
+WORKDIR /build
 RUN set -x && \
     PKG_ID="$(cat /tmp/pkg-id)" && \
     mv placeholder-pkg-id "${PKG_ID}" && \
