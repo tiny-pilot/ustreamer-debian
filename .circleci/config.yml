@@ -35,7 +35,7 @@ jobs:
           command: ./dev-scripts/enable-multiarch-docker
       - run:
           name: Build Debian package
-          command: ./dev-scripts/build-debian-pkg
+          command: ./dev-scripts/build-debian-pkg "linux/arm/v7,linux/amd64"
       - run:
           name: Print Debian package contents
           command: dpkg --contents build/*.deb
