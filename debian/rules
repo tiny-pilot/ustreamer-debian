@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# Prevent debhelper from generating an extra package with debug symbols.
+export DEB_BUILD_OPTIONS=noddebs
+
 %:
 	dh $@
 
