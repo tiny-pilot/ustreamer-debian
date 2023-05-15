@@ -28,7 +28,7 @@ ENV PKG_BUILD_NUMBER='1'
 # Docker's platform names don't match Debian's platform names, so we translate
 # the platform name from the Docker version to the Debian version and save the
 # result to a file so we can re-use it in later stages.
-RUN cat | bash <<EOF
+RUN cat | bash <<'EOF'
 set -x
 set -u
 case "${TARGETPLATFORM}" in
@@ -95,14 +95,12 @@ ${PKG_NAME} (${PKG_VERSION}) bullseye; urgency=medium
  -- TinyPilot Support <support@tinypilotkvm.com>  $(date '+%a, %d %b %Y %H:%M:%S %z')
 EOF
 
-WORKDIR ..
-
 # Install build dependencies based on Debian control file.
 RUN mk-build-deps \
       --tool 'apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -qqy' \
       --install \
       --remove \
-      debian/control
+      control
 
 # Rename the placeholder build directory to the final package ID.
 WORKDIR /build
