@@ -1,0 +1,1 @@
+janus/libjanus_ustreamer.so /usr/lib/${DEB_HOST_MULTIARCH}/janus/plugins/

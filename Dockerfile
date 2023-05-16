@@ -11,7 +11,26 @@ RUN set -x && \
       dpkg-dev \
       devscripts \
       git \
-      build-essential
+      build-essential \
+      wget \
+      gnupg
+
+# Add bullseye-backports apt suite to later install janus dependency.
+RUN cat | bash <<'EOF'
+set -ex
+# Add keyring.
+wget \
+  --output-document - \
+  https://ftp-master.debian.org/keys/archive-key-11.asc | \
+  gpg \
+    --dearmor > \
+  /usr/share/keyrings/bullseye-archive-keyring.gpg
+# Add repository.
+echo 'deb [signed-by=/usr/share/keyrings/bullseye-archive-keyring.gpg] http://deb.debian.org/debian bullseye-backports main' > \
+  /etc/apt/sources.list.d/bullseye-backports.list
+# Update package index.
+apt-get update
+EOF
 
 # Docker populates this value from the --platform argument. See
 # https://docs.docker.com/build/building/multi-platform/
@@ -29,8 +48,7 @@ ENV PKG_BUILD_NUMBER='1'
 # the platform name from the Docker version to the Debian version and save the
 # result to a file so we can re-use it in later stages.
 RUN cat | bash <<'EOF'
-set -x
-set -u
+set -exu
 case "${TARGETPLATFORM}" in
   'linux/amd64')
     PKG_ARCH='amd64'
@@ -73,7 +91,11 @@ Build-Depends: debhelper (>= 11),
   libjpeg-dev,
   uuid-dev,
   libbsd-dev,
-  janus-dev
+  janus-dev,
+  libasound2-dev,
+  libspeex-dev,
+  libspeexdsp-dev,
+  libopus-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
