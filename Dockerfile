@@ -115,7 +115,7 @@ Description: Lightweight and fast MJPEG-HTTP streamer
 EOF
 
 RUN cat >changelog <<EOF
-${PKG_NAME} (${PKG_VERSION}) bullseye; urgency=medium
+${PKG_NAME} (${PKG_VERSION}-${PKG_BUILD_NUMBER}) bullseye; urgency=medium
 
   * Latest µStreamer release.
 
