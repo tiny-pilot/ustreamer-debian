@@ -124,6 +124,7 @@ EOF
 
 # Install build dependencies based on Debian control file.
 RUN mk-build-deps \
+      --tool 'apt-get --option Debug::pkgProblemResolver=yes --no-install-recommends -qqy' \
       --install \
       --remove \
       control
