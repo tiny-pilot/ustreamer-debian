@@ -36,13 +36,12 @@ EOF
 # https://docs.docker.com/build/building/multi-platform/
 ARG TARGETPLATFORM
 
-# The `PKG_VERSION` is the version of the Debian package. This should be a
-# timestamp, formatted `YYYYMMDDhhmmss`. That way the package manager always
-# installs the most recently built package.
-ARG PKG_VERSION
-
 ENV PKG_NAME='ustreamer'
-ENV PKG_BUILD_NUMBER='1'
+ARG PKG_VERSION='5.38'
+
+# This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
+# manager always installs the most recently built package.
+ARG PKG_BUILD_NUMBER
 
 # Docker's platform names don't match Debian's platform names, so we translate
 # the platform name from the Docker version to the Debian version and save the
@@ -72,7 +71,12 @@ RUN mkdir -p /build/placeholder-pkg-id
 
 WORKDIR /build/placeholder-pkg-id
 
-RUN git clone https://github.com/tiny-pilot/ustreamer.git .
+RUN git \
+      clone \
+      --branch "v${PKG_VERSION}" \
+      --depth 1 \
+      https://github.com/tiny-pilot/ustreamer.git \
+      .
 
 COPY debian debian
 
