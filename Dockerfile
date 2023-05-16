@@ -72,7 +72,8 @@ Build-Depends: debhelper (>= 11),
   libevent-dev,
   libjpeg-dev,
   uuid-dev,
-  libbsd-dev
+  libbsd-dev,
+  janus-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
@@ -97,10 +98,16 @@ EOF
 
 # Install build dependencies based on Debian control file.
 RUN mk-build-deps \
-      --tool 'apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -qqy' \
       --install \
       --remove \
       control
+
+# Allow Janus C header files to be included when compiling third-party plugins.
+# https://github.com/tiny-pilot/ansible-role-tinypilot/issues/192
+RUN sed \
+      --in-place \
+      's/^#include "refcount\.h"$/#include "\.\.\/refcount\.h"/g' \
+      /usr/include/janus/plugins/plugin.h
 
 # Rename the placeholder build directory to the final package ID.
 WORKDIR /build
