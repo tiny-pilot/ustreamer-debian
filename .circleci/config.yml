@@ -39,9 +39,8 @@ jobs:
       - run:
           name: Print Debian package contents
           command: |
-            set -x
+            set -exu
             while read -r file; do
-              echo "${file}"
               dpkg --contents "${file}"
             done < <(find . -name '*.deb')
       - persist_to_workspace:
