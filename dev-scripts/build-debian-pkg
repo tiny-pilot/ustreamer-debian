@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Build uStreamer Debian package.
+#
+# Usage:
+#   build-debian-pkg [target architectures]
+#
+# target architecture: A comma-separated list of architectures that Docker
+#   accepts for its --platform argument. If omitted, defaults to
+#   "linux/arm/v7,linux/amd64". The only supported targets are linux/arm/v7 and
+#   linux/amd64.
+#
+# Examples
+#  build-debian-pkg "linux/arm/v7"
+#  build-debian-pkg "linux/arm/v7,linux/amd64"
+
+# Exit on first failure.
+set -e
+
+# Echo commands before executing them, by default to stderr.
+set -x
+
+# Exit on unset variable.
+set -u
+
+readonly BUILD_TARGETS="${1:-linux/arm/v7,linux/amd64}"
+
+PKG_VERSION="$(date '+%Y%m%d%H%M%S')"
+readonly PKG_VERSION
+
+# Use plain Docker build progress output when we're running in CI.
+DOCKER_PROGRESS='auto'
+if [[ -n "${CI:-}" ]]; then
+  DOCKER_PROGRESS='plain'
+fi
+readonly DOCKER_PROGRESS
+
+DOCKER_BUILDKIT=1 docker buildx build \
+  --file Dockerfile \
+  --platform "${BUILD_TARGETS}" \
+  --build-arg PKG_VERSION="${PKG_VERSION}" \
+  --target=artifact \
+  --progress="${DOCKER_PROGRESS}" \
+  --output "type=local,dest=$(pwd)/build/" \
+  .
