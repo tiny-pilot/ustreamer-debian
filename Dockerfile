@@ -91,6 +91,7 @@ Section: video
 Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
+  dh-exec,
   libevent-dev,
   libjpeg-dev,
   uuid-dev,
