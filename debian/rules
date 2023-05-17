@@ -6,6 +6,8 @@ include /usr/share/dpkg/architecture.mk
 # Prevent debhelper from generating an extra package with debug symbols.
 export DEB_BUILD_OPTIONS=noddebs
 
+export PREFIX=/opt/ustreamer
+
 %:
 	dh $@
 
