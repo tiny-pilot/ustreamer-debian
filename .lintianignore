@@ -1,0 +1,4 @@
+# Debian doesn't want packages to install to /opt, but it also doesn't give
+# clear guidance on where they *should* go. It's too much churn at this point to
+# change, so we're going to ignore this.
+dir-or-file-in-opt
