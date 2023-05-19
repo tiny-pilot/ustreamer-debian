@@ -79,7 +79,6 @@ RUN git \
       .
 
 COPY debian debian
-COPY COPYRIGHT ./
 
 WORKDIR debian
 
