@@ -67,8 +67,6 @@ EOF
 # way to specify a dynamic value in Docker's WORKDIR command, so we use a
 # placeholder directory name to assemble the Debian package and then rename the
 # directory to its package ID name in the final stages of packaging.
-RUN mkdir -p /build/placeholder-pkg-id
-
 WORKDIR /build/placeholder-pkg-id
 
 RUN git \
