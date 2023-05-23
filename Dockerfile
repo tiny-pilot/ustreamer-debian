@@ -36,7 +36,7 @@ EOF
 # https://docs.docker.com/build/building/multi-platform/
 ARG TARGETPLATFORM
 
-ENV PKG_NAME='ustreamer'
+ARG PKG_NAME='ustreamer'
 ARG PKG_VERSION='5.38'
 
 # This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
