@@ -105,7 +105,7 @@ Build-Depends: debhelper (>= 11),
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
 Depends: \${shlibs:Depends}, \${misc:Depends}
-Homepage: https://pikvm.org/
+Homepage: https://github.com/tiny-pilot/ustreamer
 Description: Lightweight and fast MJPEG-HTTP streamer
  µStreamer is a lightweight and very quick server to stream MJPEG video
  from any V4L2 device to the net. All new browsers have native
