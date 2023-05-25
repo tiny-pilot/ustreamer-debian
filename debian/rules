@@ -7,6 +7,7 @@ include /usr/share/dpkg/architecture.mk
 export DEB_BUILD_OPTIONS=noddebs
 
 export PREFIX=/opt/ustreamer
+export MANPREFIX=/usr/share/man
 
 %:
 	dh $@
