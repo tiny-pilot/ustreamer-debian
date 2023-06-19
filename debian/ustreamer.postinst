@@ -25,3 +25,9 @@ adduser \
   --ingroup "${USTREAMER_GROUP}" \
   --home "${USTREAMER_HOME_DIR}" \
   "${USTREAMER_USER}"
+
+# Give user access to video devices.
+usermod \
+  --append \
+  --groups video \
+  "${USTREAMER_USER}"
