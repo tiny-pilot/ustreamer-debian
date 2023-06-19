@@ -16,7 +16,7 @@ getent group "${USTREAMER_GROUP}" > /dev/null || \
     --system \
     "${USTREAMER_GROUP}"
 
-# adduser is idempotent, so we don't need to check existence first.
+# Create user, if it doesn't already exist.
 adduser \
   --system \
   `# We have to specify a shell to override the default /usr/sbin/nologin, ` \
