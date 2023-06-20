@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Exit on first failure.
+set -e
+
+# Exit on unset variable.
+set -u
+
+readonly USTREAMER_USER='ustreamer'
+readonly USTREAMER_GROUP="${USTREAMER_USER}"
+readonly USTREAMER_HOME_DIR="/home/${USTREAMER_USER}"
+
+# Create group, if it doesn't already exist.
+getent group "${USTREAMER_GROUP}" > /dev/null || \
+  addgroup \
+    --system \
+    "${USTREAMER_GROUP}"
+
+# Create user, if it doesn't already exist.
+adduser \
+  --system \
+  `# We have to specify a shell to override the default /usr/sbin/nologin, ` \
+  `# which prevents us from executing commands through "sudo su".` \
+  --shell /bin/bash \
+  --ingroup "${USTREAMER_GROUP}" \
+  --home "${USTREAMER_HOME_DIR}" \
+  "${USTREAMER_USER}"
+
+# Give user access to video devices. The `video` system group is predefined by
+# Debian for granting users access to video hardware.
+usermod \
+  --append \
+  --groups video \
+  "${USTREAMER_USER}"
