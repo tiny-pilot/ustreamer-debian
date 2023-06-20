@@ -26,7 +26,8 @@ adduser \
   --home "${USTREAMER_HOME_DIR}" \
   "${USTREAMER_USER}"
 
-# Give user access to video devices.
+# Give user access to video devices. The `video` system group is predefined by
+# Debian for granting users access to video hardware.
 usermod \
   --append \
   --groups video \
