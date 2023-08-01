@@ -3,6 +3,6 @@
 # change, so we're going to ignore this.
 dir-or-file-in-opt
 
-# Ignore this until we find a better way of setting permissions properly. 
-# https://github.com/tiny-pilot/tinypilot/issues/1196 
+# Ignore this until we find a better way of setting permissions properly.
+# https://github.com/tiny-pilot/tinypilot/issues/1196
 recursive-privilege-change
