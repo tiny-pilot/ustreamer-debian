@@ -5,4 +5,4 @@ dir-or-file-in-opt
 
 # Ignore this until we find a better way of setting permissions properly. 
 # https://github.com/tiny-pilot/tinypilot/issues/1196 
-recursive-privilege-change 
+recursive-privilege-change
