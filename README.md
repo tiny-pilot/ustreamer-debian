@@ -19,7 +19,7 @@ git clone git@github.com:tiny-pilot/ustreamer.git && \
   git push --tags origin
 ```
 
-Then, update the `ARG PKG_VERSION=` line in `Dockerfile` to the desired uStreamer version.
+Then, update the `ARG PKG_VERSION=` line in `Dockerfile` to the desired [uStreamer release tag](https://github.com/pikvm/ustreamer/tags).
 
 ## Publishing releases
 
