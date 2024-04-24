@@ -17,13 +17,13 @@ Check the [uStreamer README](https://github.com/pikvm/ustreamer?tab=readme-ov-fi
 
 If the new version of uStreamer is a new major version, try and find out why the major version number increased.
 
-Open a GitHub comparison showing the commits since the last version of uStreamer TinyPilot uses to the latest tagged version e.g., [v5.43 to v6.11](https://github.com/pikvm/ustreamer/compare/v5.43...v6.11). Review the commit messages for any breaking changes or feature improvements.
+Review all commits made to uStreamer since we last cut a release for any breaking changes or feature improvements. You can do this using a GitHub comparison, e.g., [v5.43 to v6.11](https://github.com/pikvm/ustreamer/compare/v5.43...v6.11).
 
 Check for any other obvious breaking changes by reviewing some of the major commit diffs.
 
 ### Create a branch
 
-If the new version of uStreamer doesn't have any obvious breaking changes, create a new uStreamer debian package in a development branch.
+If the new version of uStreamer doesn't have any obvious breaking changes, create a new uStreamer debian package in a development branch as follows.
 
 First, sync tags of [TinyPilot's fork of uStreamer](https://github.com/tiny-pilot/ustreamer) with [the upstream version](https://github.com/pikvm/ustreamer)
 
@@ -35,22 +35,20 @@ git clone git@github.com:tiny-pilot/ustreamer.git && \
   git push --tags origin
 ```
 
-Create a new branch in this repository and update the `ARG PKG_VERSION=` line in `Dockerfile` to the desired [uStreamer release tag](https://github.com/pikvm/ustreamer/tags).
+Then, create a new branch in this repository and update the `ARG PKG_VERSION=` line in `Dockerfile` to the desired [uStreamer release tag](https://github.com/pikvm/ustreamer/tags).
 
-### Testing
-
-When you have a branch for the new TinyPilot uStreamer Debian package, install the test package on a live device and test it.
+### Testing on device
 
 Install the latest version of TinyPilot Pro on your test device and SSH into it.
 
-Download the TinyPilot uStreamer debian package.
+Get the URL of the new debian package:
 
 1. Go to the CircleCI build for your branch.
 1. Click the "build_debian_package" CircleCI step.
 1. Go the the "Artifacts" tab.
 1. Copy the link to the `armhf.deb` file.
 
-Run:
+Download the new debian package on the test device:
 
 ```bash
 # Replace the URL with the link to the `armhf.deb` package.
@@ -66,6 +64,8 @@ sudo apt install -y ./ustreamer_*.deb
 Capture a TinyPilot log to check the version of uStreamer that's running and make sure it's the version you expect.
 
 Now perform a manual test of TinyPilot's video features (a subset of our manual release testing process) to make sure they still work as expected.
+
+Note: these tests aren't OS dependent, but some steps assume the target machine is Ubuntu 22.04 for navigation and settings.
 
 #### Reduce video frame rate (MJPEG)
 
