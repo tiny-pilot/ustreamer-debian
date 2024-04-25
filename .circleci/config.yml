@@ -23,20 +23,15 @@ jobs:
           name: Run static analysis on bash scripts
           command: ./dev-scripts/check-bash
   build_debian_package:
-    docker:
-      - image: cimg/base:2023.06
+    executor: ubuntu
     resource_class: arm.medium
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.11
           docker_layer_caching: true
       - run:
-          name: Enable multiarch builds with QEMU
-          command: ./dev-scripts/enable-multiarch-docker
-      - run:
           name: Build Debian package
-          command: ./dev-scripts/build-debian-pkg "linux/arm/v7"
+          command: ./dev-scripts/build-debian-pkg linux/arm/v7
       - run:
           name: Print Debian package contents
           command: |
