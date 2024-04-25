@@ -1,4 +1,8 @@
 version: 2.1
+executors:
+  ubuntu:
+    docker:
+      - image: cimg/base:2024.02
 jobs:
   check_whitespace:
     docker:
