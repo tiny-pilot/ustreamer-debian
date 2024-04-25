@@ -152,6 +152,12 @@ If the manual tests pass, measure the new latency:
 
 ### Create tickets
 
+If we encounter any regression during the testing process, including a significant increase in latency, raise this with the product owner. The next steps would probably be one or more of these steps:
+
+1. See if we can fix the uStreamer regression and contribute it upstream
+1. Report the bug to uStreamer
+1. Accept the regression if it's minor
+
 If the latency measurements indicate that latency has dropped by more than 5% compare to the previous uStreamer version, create some tickets.
 
 - Create a ticket to update the TinyPilot website with the new latency figure.
