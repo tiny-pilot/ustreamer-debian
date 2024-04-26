@@ -5,8 +5,7 @@ executors:
       - image: cimg/base:2024.02
 jobs:
   check_whitespace:
-    docker:
-      - image: cimg/base:2020.01
+    executor: ubuntu
     steps:
       - checkout
       - run:
@@ -46,12 +45,11 @@ jobs:
       - persist_to_workspace:
           root: build
           paths:
-            - ./*/*.deb
+            - "*.deb"
       - store_artifacts:
           path: build
   lint_debian_package:
-    docker:
-      - image: cimg/base:2022.11-22.04
+    executor: ubuntu
     steps:
       - checkout
       - attach_workspace:
