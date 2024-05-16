@@ -1,8 +1,11 @@
 version: 2.1
+executors:
+  ubuntu:
+    docker:
+      - image: cimg/base:2024.02
 jobs:
   check_whitespace:
-    docker:
-      - image: cimg/base:2020.01
+    executor: ubuntu
     steps:
       - checkout
       - run:
@@ -23,19 +26,15 @@ jobs:
           name: Run static analysis on bash scripts
           command: ./dev-scripts/check-bash
   build_debian_package:
-    docker:
-      - image: cimg/base:stable
+    executor: ubuntu
+    resource_class: arm.medium
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.11
           docker_layer_caching: true
       - run:
-          name: Enable multiarch builds with QEMU
-          command: ./dev-scripts/enable-multiarch-docker
-      - run:
           name: Build Debian package
-          command: ./dev-scripts/build-debian-pkg "linux/arm/v7,linux/amd64"
+          command: ./dev-scripts/build-debian-pkg linux/arm/v7
       - run:
           name: Print Debian package contents
           command: |
@@ -46,12 +45,11 @@ jobs:
       - persist_to_workspace:
           root: build
           paths:
-            - ./*/*.deb
+            - "*.deb"
       - store_artifacts:
           path: build
   lint_debian_package:
-    docker:
-      - image: cimg/base:2022.11-22.04
+    executor: ubuntu
     steps:
       - checkout
       - attach_workspace:
