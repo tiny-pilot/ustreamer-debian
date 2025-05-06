@@ -172,13 +172,13 @@ We publish releases manually on Github. When we're ready to publish a new releas
 1. Go to the CircleCI build for the most recent `master` branch.
 1. Click the `build_debian_package` CircleCI step.
 1. Go the the "Artifacts" tab.
-1. Download all `.deb*` files.
+1. Download the `*armhf.deb` file.
 
 ### Create a Github release
 
 1. Create a new Github release for ustreamer-debian.
 1. Make the release tag and title the version number and timestamp suffix from the `.deb`` files.
-   - e.g., `ustreamer_5.38-20230802141939_amd64.deb` would have the tag `5.38-20230802141939`.
+   - e.g., `ustreamer_5.38-20230802141939_amdhf.deb` would have the tag `5.38-20230802141939`.
 1. Click "Generate release notes."
-1. Upload the Debian package files you downloaded above.
+1. Upload the Debian package file you downloaded above.
 1. Click "Publish release."
