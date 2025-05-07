@@ -177,7 +177,7 @@ We publish releases manually on Github. When we're ready to publish a new releas
 ### Create a Github release
 
 1. Create a new Github release for ustreamer-debian.
-1. Make the release tag and title the version number and timestamp suffix from the `.deb`` files.
+1. Make the release tag and title the version number and timestamp suffix from the `.deb` file.
    - e.g., `ustreamer_5.38-20230802141939_amdhf.deb` would have the tag `5.38-20230802141939`.
 1. Click "Generate release notes."
 1. Upload the Debian package file you downloaded above.
