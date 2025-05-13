@@ -37,7 +37,7 @@ EOF
 ARG TARGETPLATFORM
 
 ARG PKG_NAME='ustreamer'
-ARG PKG_VERSION='6.5'
+ARG PKG_VERSION='6.10'
 
 # This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
 # manager always installs the most recently built package.
