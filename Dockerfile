@@ -48,7 +48,7 @@ case "${TARGETPLATFORM}" in
     exit 1
 esac
 echo "${PKG_ARCH}" > /tmp/pkg-arch
-echo "${PKG_NAME}-${PKG_VERSION}-${PKG_BUILD_NUMBER}-${PKG_ARCH}" > /tmp/pkg-id
+echo "${PKG_NAME}_${PKG_VERSION}-${PKG_BUILD_NUMBER}_${PKG_ARCH}" > /tmp/pkg-id
 EOF
 
 # We ultimately need the directory name to be the package ID, but there's no
@@ -78,6 +78,7 @@ Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
   dh-exec,
+  pkg-config,
   libevent-dev,
   libjpeg-dev,
   uuid-dev,
@@ -103,7 +104,7 @@ EOF
 RUN cat >changelog <<EOF
 ${PKG_NAME} (${PKG_VERSION}-${PKG_BUILD_NUMBER}) bullseye; urgency=medium
 
-  * Latest µStreamer release.
+  * µStreamer ${PKG_VERSION} release.
 
  -- TinyPilot Support <support@tinypilotkvm.com>  $(date '+%a, %d %b %Y %H:%M:%S %z')
 EOF
