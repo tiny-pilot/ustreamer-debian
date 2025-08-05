@@ -87,7 +87,8 @@ Build-Depends: debhelper (>= 11),
   libspeex-dev,
   libspeexdsp-dev,
   libopus-dev,
-  libglib2.0-dev
+  libglib2.0-dev,
+  libjansson-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
