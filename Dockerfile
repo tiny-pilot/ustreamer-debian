@@ -4,33 +4,21 @@
 
 FROM debian:bullseye-20220328-slim AS build
 
-RUN set -x && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+ARG DEBIAN_FRONTEND='noninteractive'
+
+RUN apt-get update && \
+    apt-get install --yes \
       debhelper \
       dpkg-dev \
       devscripts \
       git \
       build-essential \
-      wget \
-      gnupg
+      wget
 
-# Add bullseye-backports apt suite to later install janus dependency.
-RUN cat | bash <<'EOF'
-set -ex
-# Add keyring.
-wget \
-  --output-document - \
-  https://ftp-master.debian.org/keys/archive-key-11.asc | \
-  gpg \
-    --dearmor > \
-  /usr/share/keyrings/bullseye-archive-keyring.gpg
-# Add repository.
-echo 'deb [signed-by=/usr/share/keyrings/bullseye-archive-keyring.gpg] http://deb.debian.org/debian bullseye-backports main' > \
-  /etc/apt/sources.list.d/bullseye-backports.list
-# Update package index.
-apt-get update
-EOF
+# Install Janus dependency.
+RUN wget --output-document /tmp/janus.deb \
+      https://output.circle-artifacts.com/output/job/10689798-c704-46aa-b8b9-bef3d884ca58/artifacts/0/build/janus_1.3.2-20250804153046_armhf.deb && \
+    apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
 # https://docs.docker.com/build/building/multi-platform/
@@ -94,7 +82,6 @@ Build-Depends: debhelper (>= 11),
   libjpeg-dev,
   uuid-dev,
   libbsd-dev,
-  janus-dev,
   libasound2-dev,
   libspeex-dev,
   libspeexdsp-dev,
@@ -127,13 +114,6 @@ RUN mk-build-deps \
       --install \
       --remove \
       control
-
-# Allow Janus C header files to be included when compiling third-party plugins.
-# https://github.com/tiny-pilot/ansible-role-tinypilot/issues/192
-RUN sed \
-      --in-place \
-      's/^#include "refcount\.h"$/#include "\.\.\/refcount\.h"/g' \
-      /usr/include/janus/plugins/plugin.h
 
 # Rename the placeholder build directory to the final package ID.
 WORKDIR /build
