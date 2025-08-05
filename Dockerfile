@@ -86,7 +86,8 @@ Build-Depends: debhelper (>= 11),
   libasound2-dev,
   libspeex-dev,
   libspeexdsp-dev,
-  libopus-dev
+  libopus-dev,
+  libglib2.0-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
