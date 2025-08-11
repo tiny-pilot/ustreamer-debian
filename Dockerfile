@@ -4,33 +4,21 @@
 
 FROM debian:bullseye-20220328-slim AS build
 
-RUN set -x && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+ARG DEBIAN_FRONTEND='noninteractive'
+
+RUN apt-get update && \
+    apt-get install --yes \
       debhelper \
       dpkg-dev \
       devscripts \
       git \
       build-essential \
-      wget \
-      gnupg
+      wget
 
-# Add bullseye-backports apt suite to later install janus dependency.
-RUN cat | bash <<'EOF'
-set -ex
-# Add keyring.
-wget \
-  --output-document - \
-  https://ftp-master.debian.org/keys/archive-key-11.asc | \
-  gpg \
-    --dearmor > \
-  /usr/share/keyrings/bullseye-archive-keyring.gpg
-# Add repository.
-echo 'deb [signed-by=/usr/share/keyrings/bullseye-archive-keyring.gpg] http://deb.debian.org/debian bullseye-backports main' > \
-  /etc/apt/sources.list.d/bullseye-backports.list
-# Update package index.
-apt-get update
-EOF
+# Install Janus dependency.
+RUN wget --output-document /tmp/janus.deb \
+      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20250808114245/janus_1.3.2-20250808114245_armhf.deb && \
+    apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
 # https://docs.docker.com/build/building/multi-platform/
@@ -60,7 +48,7 @@ case "${TARGETPLATFORM}" in
     exit 1
 esac
 echo "${PKG_ARCH}" > /tmp/pkg-arch
-echo "${PKG_NAME}-${PKG_VERSION}-${PKG_BUILD_NUMBER}-${PKG_ARCH}" > /tmp/pkg-id
+echo "${PKG_NAME}_${PKG_VERSION}-${PKG_BUILD_NUMBER}_${PKG_ARCH}" > /tmp/pkg-id
 EOF
 
 # We ultimately need the directory name to be the package ID, but there's no
@@ -90,15 +78,17 @@ Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
 Build-Depends: debhelper (>= 11),
   dh-exec,
+  pkg-config,
   libevent-dev,
   libjpeg-dev,
   uuid-dev,
   libbsd-dev,
-  janus-dev,
   libasound2-dev,
   libspeex-dev,
   libspeexdsp-dev,
-  libopus-dev
+  libopus-dev,
+  libglib2.0-dev,
+  libjansson-dev
 
 Package: ${PKG_NAME}
 Architecture: ${PKG_ARCH}
@@ -116,7 +106,7 @@ EOF
 RUN cat >changelog <<EOF
 ${PKG_NAME} (${PKG_VERSION}-${PKG_BUILD_NUMBER}) bullseye; urgency=medium
 
-  * Latest µStreamer release.
+  * µStreamer ${PKG_VERSION} release.
 
  -- TinyPilot Support <support@tinypilotkvm.com>  $(date '+%a, %d %b %Y %H:%M:%S %z')
 EOF
@@ -127,13 +117,6 @@ RUN mk-build-deps \
       --install \
       --remove \
       control
-
-# Allow Janus C header files to be included when compiling third-party plugins.
-# https://github.com/tiny-pilot/ansible-role-tinypilot/issues/192
-RUN sed \
-      --in-place \
-      's/^#include "refcount\.h"$/#include "\.\.\/refcount\.h"/g' \
-      /usr/include/janus/plugins/plugin.h
 
 # Rename the placeholder build directory to the final package ID.
 WORKDIR /build
