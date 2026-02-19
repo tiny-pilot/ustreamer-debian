@@ -2,7 +2,7 @@
 # Enable here-documents:
 # https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#here-documents
 
-FROM debian:bullseye-20220328-slim AS build
+FROM debian:trixie-20260202-slim AS build
 
 ARG DEBIAN_FRONTEND='noninteractive'
 
@@ -104,7 +104,7 @@ Description: Lightweight and fast MJPEG-HTTP streamer
 EOF
 
 RUN cat >changelog <<EOF
-${PKG_NAME} (${PKG_VERSION}-${PKG_BUILD_NUMBER}) bullseye; urgency=medium
+${PKG_NAME} (${PKG_VERSION}-${PKG_BUILD_NUMBER}) trixie; urgency=medium
 
   * µStreamer ${PKG_VERSION} release.
 
