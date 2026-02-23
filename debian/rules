@@ -14,3 +14,5 @@ export MANPREFIX=/usr/share/man
 
 override_dh_usrlocal:
 
+override_dh_auto_build:
+	dh_auto_build -- WITH_JANUS=1

@@ -15,6 +15,11 @@ RUN apt-get update && \
       build-essential \
       wget
 
+# Install Janus dependency.
+RUN wget --output-document /tmp/janus.deb \
+      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20250808114245/janus_1.3.2-20250808114245_armhf.deb && \
+    apt-get install --yes /tmp/janus.deb
+
 # Docker populates this value from the --platform argument. See
 # https://docs.docker.com/build/building/multi-platform/
 ARG TARGETPLATFORM
