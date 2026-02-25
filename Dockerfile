@@ -25,7 +25,7 @@ RUN wget --output-document /tmp/janus.deb \
 ARG TARGETPLATFORM
 
 ARG PKG_NAME='ustreamer'
-ARG PKG_VERSION='6.55'
+ARG PKG_VERSION='6.36'
 
 # This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
 # manager always installs the most recently built package.
