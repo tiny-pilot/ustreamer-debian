@@ -76,7 +76,7 @@ Source: ${PKG_NAME}
 Section: video
 Priority: optional
 Maintainer: TinyPilot Support <support@tinypilotkvm.com>
-Build-Depends: debhelper (>= 11),
+Build-Depends: debhelper (>= 13),
   dh-exec,
   pkg-config,
   libevent-dev,
