@@ -18,7 +18,7 @@ RUN apt-get update && \
 # Install Janus dependency.
 # TODO update URL once released.
 RUN wget --output-document /tmp/janus.deb \
-      https://output.circle-artifacts.com/output/job/728cdd9f-ea10-4b10-91b6-33255aea88a5/artifacts/0/build/janus_1.3.2-20260327144354_arm64.deb && \
+      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20260410120025/janus_1.3.2-20260410120025_arm64.deb && \
     apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
