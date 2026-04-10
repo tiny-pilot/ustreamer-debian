@@ -46,13 +46,13 @@ Get the URL of the new debian package:
 1. Go to the CircleCI build for your branch.
 1. Click the "build_debian_package" CircleCI step.
 1. Go the the "Artifacts" tab.
-1. Copy the link to the `armhf.deb` file.
+1. Copy the link to the `arm64.deb` file.
 
 Download the new debian package on the test device:
 
 ```bash
-# Replace the URL with the link to the `armhf.deb` package.
-wget https://output.circle-artifacts.com/output/job/358d292c-6233-40c2-a31c-e6b3fcc1aced/artifacts/0/build/linux_arm_v7/ustreamer_armhf.deb
+# Replace the URL with the link to the `arm64.deb` package.
+wget https://output.circle-artifacts.com/output/job/358d292c-6233-40c2-a31c-e6b3fcc1aced/artifacts/0/build/linux_arm64/ustreamer_arm64.deb
 ```
 
 Then install the package with the following command:
@@ -172,7 +172,7 @@ We publish releases manually on Github. When we're ready to publish a new releas
 1. Go to the CircleCI build for the most recent `master` branch.
 1. Click the `build_debian_package` CircleCI step.
 1. Go the the "Artifacts" tab.
-1. Download the `*armhf.deb` file.
+1. Download the `*arm64.deb` file.
 
 ### Create a Github release
 

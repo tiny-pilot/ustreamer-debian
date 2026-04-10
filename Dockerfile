@@ -16,8 +16,9 @@ RUN apt-get update && \
       wget
 
 # Install Janus dependency.
+# TODO update URL once released.
 RUN wget --output-document /tmp/janus.deb \
-      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20260226184445/janus_1.3.2-20260226184445_armhf.deb && \
+      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20260410120025/janus_1.3.2-20260410120025_arm64.deb && \
     apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
@@ -40,8 +41,8 @@ case "${TARGETPLATFORM}" in
   'linux/amd64')
     PKG_ARCH='amd64'
     ;;
-  'linux/arm/v7')
-    PKG_ARCH='armhf'
+  'linux/arm64')
+    PKG_ARCH='arm64'
     ;;
   *)
     echo "Unrecognized target platform: ${TARGETPLATFORM}" >&2

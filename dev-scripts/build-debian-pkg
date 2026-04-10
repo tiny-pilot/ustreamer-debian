@@ -7,12 +7,12 @@
 #
 # target architecture: A comma-separated list of architectures that Docker
 #   accepts for its --platform argument. If omitted, defaults to
-#   "linux/arm/v7,linux/amd64". The only supported targets are linux/arm/v7 and
+#   "linux/arm64,linux/amd64". The only supported targets are linux/arm64 and
 #   linux/amd64.
 #
 # Examples
-#  build-debian-pkg "linux/arm/v7"
-#  build-debian-pkg "linux/arm/v7,linux/amd64"
+#  build-debian-pkg "linux/arm64"
+#  build-debian-pkg "linux/arm64,linux/amd64"
 
 # Exit on first failure.
 set -e
@@ -23,7 +23,7 @@ set -x
 # Exit on unset variable.
 set -u
 
-readonly BUILD_TARGETS="${1:-linux/arm/v7,linux/amd64}"
+readonly BUILD_TARGETS="${1:-linux/arm64,linux/amd64}"
 
 PKG_BUILD_NUMBER="$(date '+%Y%m%d%H%M%S')"
 readonly PKG_BUILD_NUMBER
