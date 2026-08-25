@@ -16,9 +16,9 @@ RUN apt-get update && \
       wget
 
 # Install Janus dependency.
-# TODO update URL once released.
+# TODO: Replace CircleCI artifact URL with GitHub release once Task 1 publishes.
 RUN wget --output-document /tmp/janus.deb \
-      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20260410120025/janus_1.3.2-20260410120025_arm64.deb && \
+      https://output.circle-artifacts.com/output/job/9b201f9f-5e70-4e96-a80e-1e6d30c3f14e/artifacts/0/build/janus_1.4.1-20260512140352_arm64.deb && \
     apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
@@ -26,7 +26,7 @@ RUN wget --output-document /tmp/janus.deb \
 ARG TARGETPLATFORM
 
 ARG PKG_NAME='ustreamer'
-ARG PKG_VERSION='6.36'
+ARG PKG_VERSION='6.56'
 
 # This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
 # manager always installs the most recently built package.
