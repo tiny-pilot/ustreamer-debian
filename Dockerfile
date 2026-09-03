@@ -17,7 +17,7 @@ RUN apt-get update && \
 
 # Install Janus dependency.
 # Update JANUS_DEB_RELEASE after publishing the janus-debian release.
-ARG JANUS_DEB_RELEASE='1.4.1-20260410120025'
+ARG JANUS_DEB_RELEASE='1.4.1-20260903145153'
 RUN wget --output-document /tmp/janus.deb \
       "https://github.com/tiny-pilot/janus-debian/releases/download/${JANUS_DEB_RELEASE}/janus_${JANUS_DEB_RELEASE}_arm64.deb" && \
     apt-get install --yes /tmp/janus.deb
