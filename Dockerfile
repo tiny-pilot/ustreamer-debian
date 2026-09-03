@@ -16,9 +16,10 @@ RUN apt-get update && \
       wget
 
 # Install Janus dependency.
-# TODO update URL once released.
+# Update JANUS_DEB_RELEASE after publishing the janus-debian release.
+ARG JANUS_DEB_RELEASE='1.4.1-20260903145153'
 RUN wget --output-document /tmp/janus.deb \
-      https://github.com/tiny-pilot/janus-debian/releases/download/1.3.2-20260410120025/janus_1.3.2-20260410120025_arm64.deb && \
+      "https://github.com/tiny-pilot/janus-debian/releases/download/${JANUS_DEB_RELEASE}/janus_${JANUS_DEB_RELEASE}_arm64.deb" && \
     apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
@@ -26,7 +27,7 @@ RUN wget --output-document /tmp/janus.deb \
 ARG TARGETPLATFORM
 
 ARG PKG_NAME='ustreamer'
-ARG PKG_VERSION='6.36'
+ARG PKG_VERSION='6.56'
 
 # This should be a timestamp, formatted `YYYYMMDDhhmmss`. That way the package
 # manager always installs the most recently built package.
