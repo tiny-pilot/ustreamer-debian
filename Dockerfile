@@ -16,9 +16,10 @@ RUN apt-get update && \
       wget
 
 # Install Janus dependency.
-# TODO: Replace CircleCI artifact URL with GitHub release once Task 1 publishes.
+# Update JANUS_DEB_RELEASE after publishing the janus-debian release.
+ARG JANUS_DEB_RELEASE='1.4.1-20260410120025'
 RUN wget --output-document /tmp/janus.deb \
-      https://output.circle-artifacts.com/output/job/9b201f9f-5e70-4e96-a80e-1e6d30c3f14e/artifacts/0/build/janus_1.4.1-20260512140352_arm64.deb && \
+      "https://github.com/tiny-pilot/janus-debian/releases/download/${JANUS_DEB_RELEASE}/janus_${JANUS_DEB_RELEASE}_arm64.deb" && \
     apt-get install --yes /tmp/janus.deb
 
 # Docker populates this value from the --platform argument. See
